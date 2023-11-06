@@ -71,7 +71,8 @@ drawCard - function with no arguments - selects a card at random from the deck, 
        // .50 * 52
        // 51.44444
        let randomNumber = Math.floor(Math.random()* 52)
-     return blackjackDeck[randomNumber]
+     console.log( blackjackDeck[randomNumber])
+     this.hand.push(blackjackDeck[randomNumber])
     }
 
 
@@ -94,7 +95,7 @@ const calcPoints = (hand) => {//come back to do
     let isSoft = false
     for (let card of hand) {
         sum += card.val
-    if (val === 11 && displayVal === "Ace"){
+    if (card.val === 11 && card.displayVal === "Ace"){
         isSoft = true
     }
     }
@@ -121,7 +122,7 @@ const dealerShouldDraw = (dealerHand) => {
 //  if dealer hand is equal to 17  and one of the aces is 11 , then return true 
 // if  dealer's hand is greater or equal to 17 , then return false 
 //return { total: sum, isSoft: isSoft }
-let points = this.calcPoints(dealerHand)
+let points = calcPoints(dealerHand)
 if(dealerHand <= 16){
     return true
 
@@ -198,6 +199,7 @@ const startGame = function () {
 
     let playerScore = calcPoints(player.hand).total;
     showHand(player);
+    console.log(dealer.hand[0],'hand')
     while (playerScore < 21 && confirm(getMessage(playerScore, dealer.hand[0]))) {
         player.drawCard();
         playerScore = calcPoints(player.hand).total;
@@ -221,4 +223,28 @@ const startGame = function () {
 
     return determineWinner(playerScore, dealerScore);
 }
- console.log(startGame());
+onload = loadme;
+
+function addElement() {
+  // create a new div element
+  const newDiv = document.createElement("div");
+
+  // and give it some content
+  const newContent = document.createTextNode("Hi there and greetings!");
+
+  // add the text node to the newly created div
+  newDiv.appendChild(newContent);
+
+  // add the newly created element and its content into the DOM
+  const currentDiv = document.getElementById("div1");
+  document.body.insertBefore(newDiv, currentDiv);
+  
+}
+function loadme(){
+    console.log('loading')
+    addElement()
+    console.log('starting game')
+    console.log(startGame());
+}
+
+
