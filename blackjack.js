@@ -1,7 +1,48 @@
-const { getDeck } = require('./createCardDeck')
+
+/**
+ * Returns an array of 52 Cards
+ * @returns {Array} deck - a deck of cards
+ */
+const getDeck1 = () => {
+    const deck = []
+    const suits = ['hearts', 'spades', 'clubs', 'diamonds']
+  
+    for (let index = 0; index < suits.length; index++) {
+      console.log(suits[index])
+      // create an array of 13 objects
+      for (let j = 1; j <= 13; j++) {
+        let displayVal = `${j}`
+  // j = 13,index = 3
+        if (j == 11) {
+          displayVal = 'Jack'
+  
+  
+        }
+        if (j == 12) {
+          displayVal = 'Queen'
+  
+        }
+  
+        if (j == 13) {
+          displayVal = 'King'
+        }
+        if (j == 1) {
+          displayVal = 'Ace'
+        }
+        deck.push({ val: j, suit: suits[index], displayVal: displayVal })
+  
+      }
+  
+      // for each loop, push a card object to the deck
+  
+      // special cases for when j > 10
+  
+    }
+    return deck
+  }
 
 
-const blackjackDeck = getDeck();
+const blackjackDeck = getDeck1();
 console.log(blackjackDeck, 'deck')
 /**
  * Represents a card player (including dealer).
@@ -9,9 +50,31 @@ console.log(blackjackDeck, 'deck')
  * @param {string} name - The name of the player
  */
 class CardPlayer {
+    /**
+     * When new CardPlayer is called (with a name argument), it should return an object with the following properties and method:
+
+name - string - equal to name passed in
+hand - array - initially equal to an empty array
+drawCard - function with no arguments - selects a card at random from the deck, and adds to hand array.
+  This does not need to remove the card from the deck 
+  (so theoretically a player could draw the same card multiple times - that's okay for this scenario).
+     *select a random card from blackjackdeck 
+     * add onto hand array .push
+     */
     constructor(name) {
         this.name = name
+        this.hand = []
     }
+    drawCard(){
+        
+        //0 0.5 0.6 0.7 1
+       // .50 * 52
+       // 51.44444
+       let randomNumber = Math.floor(Math.random()* 52)
+     return blackjackDeck[randomNumber]
+    }
+
+
 };                                      //TODO Done
 
 // CREATE TWO NEW CardPlayers
@@ -57,7 +120,20 @@ const dealerShouldDraw = (dealerHand) => {
 // if dealer hand is less than or equal to 16, then return true 
 //  if dealer hand is equal to 17  and one of the aces is 11 , then return true 
 // if  dealer's hand is greater or equal to 17 , then return false 
+//return { total: sum, isSoft: isSoft }
+let points = this.calcPoints(dealerHand)
+if(dealerHand <= 16){
+    return true
 
+}
+if(dealerHand === 17 && points.isSoft === true){
+    return true
+
+}
+if(dealerHand >= 17){
+    return false
+
+}
 }
 
 /**
@@ -78,7 +154,19 @@ Whoever's point total is greater will win the round.  If both point totals are e
 //if dealer and player have same sum they both tie  
 // playerScore is: 17 , dealerScore is 17, the tied! 
 // playerScore is 15 , dealer score is 18 , ddealer wins! 
+if(playerScore === dealerScore){
+    return `playerScore is: ${playerScore} , dealerScore is ${dealerScore}, they tied!`
 
+}
+if(playerScore < 21 && dealerScore < 21 ){
+    if(playerScore < dealerScore){
+       return `playerScore is: ${playerScore} , dealerScore is ${dealerScore}, dealer Wins` 
+    }
+    else{
+        return `playerScore is: ${playerScore} , dealerScore is ${dealerScore}, player Wins` 
+    }
+
+}
 }
 
 /**
@@ -133,4 +221,4 @@ const startGame = function () {
 
     return determineWinner(playerScore, dealerScore);
 }
-// console.log(startGame());
+ console.log(startGame());

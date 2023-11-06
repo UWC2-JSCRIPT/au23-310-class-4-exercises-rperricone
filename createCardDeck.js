@@ -59,4 +59,4 @@ const cardHasDisplayVal =
   typeof randomCard.displayVal === 'string'
 console.log(`Random card has display value? ${cardHasDisplayVal}`)
 
-module.exports = {getDeck}
+//export default {getDeck}
