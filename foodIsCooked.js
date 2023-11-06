@@ -7,8 +7,7 @@
  */
 const foodIsCooked = function(kind, internalTemp, doneness) {
   // Write function HERE
-  const foodIsCooked = function(kind, internalTemp, doneness) {
-    // Write function HERE
+  
     if(kind === 'chicken'){
       if(internalTemp >= 165){ 
         return true; }
@@ -33,8 +32,6 @@ const foodIsCooked = function(kind, internalTemp, doneness) {
   
     return false;
   }
-}
-
 
 
 // Test function

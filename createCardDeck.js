@@ -10,8 +10,8 @@ const getDeck = () => {
     console.log(suits[index])
     // create an array of 13 objects
     for (let j = 1; j <= 13; j++) {
-      let displayVal = j + ''
-
+      let displayVal = `${j}`
+// j = 13,index = 3
       if (j == 11) {
         displayVal = 'Jack'
 
