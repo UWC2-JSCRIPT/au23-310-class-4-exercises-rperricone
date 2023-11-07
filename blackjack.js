@@ -81,7 +81,13 @@ drawCard - function with no arguments - selects a card at random from the deck, 
 // CREATE TWO NEW CardPlayers
 const dealer = new CardPlayer('Dealer'); // TODO Done
 const player = new CardPlayer('Player'); // TODO Done
-
+function sumIn(arrayOfNums){
+    let sum = 0
+    for(let num of arrayOfNums){
+        sum += num
+    }
+    return sum 
+}
 /**
  * Calculates the score of a Blackjack hand
  * @param {Array} hand - Array of card objects with val, displayVal, suit properties
@@ -91,16 +97,39 @@ const player = new CardPlayer('Player'); // TODO Done
  */
 const calcPoints = (hand) => {//come back to do
     // CREATE FUNCTION HERE
+    let aces = [] 
     let sum = 0
     let isSoft = false
     for (let card of hand) {
+        if( card.displayVal === "Ace"){
+            aces.push(1)
+        }
+        else{
         sum += card.val
-    if (card.val === 11 && card.displayVal === "Ace"){
-        isSoft = true
-    }
-    }
+        }
     
-    return { total: sum, isSoft: isSoft }
+    // if (card.val === 11 && card.displayVal === "Ace"){
+    //     isSoft = true
+    // }
+    }
+    // sum of points that are not aces 10 
+    // points that are aces : 1,1,1,1  
+    let sumOfAces = 0
+    let outputSum = sum
+    if(aces.length > 0 ){
+       sumOfAces =  sumIn(aces) // without 11 
+       aces[0] = 11 
+       hypotheticalAce = sumIn(aces) // with 11 
+      if( (hypotheticalAce + sum)> 21){
+        outputSum =  sum + sumOfAces
+      }
+      else{
+        outputSum=  sum + hypotheticalAce 
+        isSoft = true
+      }
+    }
+   
+    return { total: outputSum, isSoft: isSoft }
 
 }
 
@@ -179,6 +208,19 @@ const getMessage = (count, dealerCard) => {
     return `Dealer showing ${dealerCard.displayVal}, your count is ${count}.  Draw card?`
 }
 
+function lookupIcon(suit){
+    switch(suit){
+        case 'hearts':
+            return '♥'
+        case 'spades':
+            return '♠'
+        case 'diamonds':
+            return '♦'
+        case 'clubs':
+            return '♣'
+         
+    }
+}
 /**
  * Logs the player's hand to the console
  * @param {CardPlayer} player 
@@ -225,24 +267,24 @@ const startGame = function () {
 }
 onload = loadme;
 
-function addElement() {
+//function addElement() {
   // create a new div element
-  const newDiv = document.createElement("div");
+  //const newDiv = document.createElement("div");
 
   // and give it some content
-  const newContent = document.createTextNode("Hi there and greetings!");
+ // const newContent = document.createTextNode("Hi there and greetings!");
 
   // add the text node to the newly created div
-  newDiv.appendChild(newContent);
+  //newDiv.appendChild(newContent);
 
   // add the newly created element and its content into the DOM
-  const currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
+ // const currentDiv = document.getElementById("div1");
+ // document.body.insertBefore(newDiv, currentDiv);
   
-}
+//}
 function loadme(){
     console.log('loading')
-    addElement()
+   // addElement()
     console.log('starting game')
     console.log(startGame());
 }
