@@ -26,5 +26,5 @@ const cardsWorthTen = cards => {
   //animals.filter((animal) => animal.kind === 'reptile');
 };
 
-console.log(cardsWorthTen(cards));
+console.log(cardsWorthTen(cards).join(","));
 // should return/log "10, Jack, Queen, King"
